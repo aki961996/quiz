@@ -59,7 +59,7 @@ class QuizSeeder extends Seeder
             'question' => 'Who wrote "Pride and Prejudice"?',
             'options' => ['Charlotte Brontë', 'Jane Austen', 'Emily Dickinson', 'Virginia Woolf'],
             'correct_answer' => 'Jane Austen',
-            'time_limit' => 45
+            'time_limit' => 30
         ]);
         
         Question::create([
@@ -67,7 +67,7 @@ class QuizSeeder extends Seeder
             'question' => 'Which painting is famous for the subject\'s mysterious smile?',
             'options' => ['The Starry Night', 'Mona Lisa', 'The Scream', 'Girl with a Pearl Earring'],
             'correct_answer' => 'Mona Lisa',
-            'time_limit' => 45
+            'time_limit' => 30
         ]);
         
         // History Quiz
@@ -111,7 +111,7 @@ class QuizSeeder extends Seeder
             'question' => 'Which movie won the Academy Award for Best Picture in 2020?',
             'options' => ['1917', 'Joker', 'Parasite', 'Once Upon a Time in Hollywood'],
             'correct_answer' => 'Parasite',
-            'time_limit' => 40
+            'time_limit' => 30
         ]);
         
         // Geography Quiz
@@ -129,7 +129,7 @@ class QuizSeeder extends Seeder
             'question' => 'What is the capital of Australia?',
             'options' => ['Sydney', 'Melbourne', 'Canberra', 'Perth'],
             'correct_answer' => 'Canberra',
-            'time_limit' => 35
+            'time_limit' => 30
         ]);
         
         Question::create([
@@ -137,7 +137,7 @@ class QuizSeeder extends Seeder
             'question' => 'Which is the longest river in the world?',
             'options' => ['Amazon River', 'Nile River', 'Mississippi River', 'Yangtze River'],
             'correct_answer' => 'Nile River',
-            'time_limit' => 35
+            'time_limit' => 30
         ]);
         
         // Food & Drink Quiz
@@ -181,7 +181,7 @@ class QuizSeeder extends Seeder
             'question' => 'How many bones are there in an adult human body?',
             'options' => ['196', '206', '216', '226'],
             'correct_answer' => '206',
-            'time_limit' => 40
+            'time_limit' => 30
         ]);
         
         Question::create([
@@ -189,7 +189,7 @@ class QuizSeeder extends Seeder
             'question' => 'What is the largest planet in our solar system?',
             'options' => ['Saturn', 'Jupiter', 'Neptune', 'Uranus'],
             'correct_answer' => 'Jupiter',
-            'time_limit' => 35
+            'time_limit' => 30
         ]);
         
         Question::create([
@@ -197,7 +197,7 @@ class QuizSeeder extends Seeder
             'question' => 'In which year was the first iPhone released?',
             'options' => ['2006', '2007', '2008', '2009'],
             'correct_answer' => '2007',
-            'time_limit' => 40
+            'time_limit' => 30
         ]);
     }
 }

@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('title', 'Sign Up')
 @section('style')
-<style>
-    body {
-        background: url('{{ asset('/img/detail.jpg') }}') no-repeat center center fixed;
-        background-size: cover;
-    }
+    <style>
+        body {
+            background: url('{{ asset('/img/detail.jpg') }}') no-repeat center center fixed;
+            background-size: cover;
+        }
 
-    .card {
-        background-color: rgba(255, 255, 255, 0.9);
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-</style>
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 @endsection
 @section('content')
     <main>
@@ -22,12 +22,16 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
+
+
                             <div class="d-flex justify-content-center py-4">
-                                <a href="{{ route('register') }}" class="logo d-flex align-items-center w-auto">
-                                    <img src="{{ asset('public//img/logo.png') }}" alt="">
-                                    <span class="d-none d-lg-block">Online Quiz - Signup</span>
+                                <a href="{{ route('register') }}" class="logo d-flex align-items-center w-auto"
+                                    style="text-decoration: none;">
+                                    <span class="d-none d-lg-block" style="color: black; font-size: 28px;">Online Quiz -
+                                        Register</span>
                                 </a>
-                            </div><!-- End Logo -->
+
+                            </div>
 
                             <div class="card mb-3">
 

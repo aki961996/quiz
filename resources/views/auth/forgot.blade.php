@@ -25,11 +25,16 @@
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                             <div class="d-flex justify-content-center py-4">
-                                <a href="{{ route('login') }}" class="logo d-flex align-items-center w-auto">
-                                    <img src="{{ asset('public/img/logo.png') }}" alt="">
-                                    <span class="d-none d-lg-block">Online Quiz - Login</span>
+                                <a href="{{ route('login') }}" class="logo d-flex align-items-center w-auto"
+                                    style="text-decoration: none; width: 100%; justify-content: center;">
+
+                                    <span class="d-none d-lg-block"
+                                        style="color: black; font-size: 28px; text-align: center; text-decoration: none; display: block;">
+                                        Online Quiz - Forgot password
+                                    </span>
                                 </a>
-                            </div><!-- End Logo -->
+                            </div>
+
 
                             <div class="card mb-3">
 
