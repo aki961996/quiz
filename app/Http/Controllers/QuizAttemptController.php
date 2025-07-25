@@ -57,34 +57,66 @@ class QuizAttemptController extends Controller
 
 
 
-    public function completeQuiz(UserQuizAttempt $attempt)
-    {
+    // public function completeQuiz(UserQuizAttempt $attempt)
+    // {
 
-        $correctAnswers = $attempt->answers()->where('is_correct', true)->count();
-        $score = ($correctAnswers / $attempt->total_questions) * 100;
+    //     $correctAnswers = $attempt->answers()->where('is_correct', true)->count();
+    //     $score = ($correctAnswers / $attempt->total_questions) * 100;
 
-        $attempt->update([
-            'completed_at' => now(),
-            'score' => $score,
-            'status' => 'completed'
-        ]);
+    //     $attempt->update([
+    //         'completed_at' => now(),
+    //         'score' => $score,
+    //         'status' => 'completed'
+    //     ]);
 
-        // Get all answers with their questions 
-        // Eager load the questions with the answers
-        // to avoid N+1 query problem
-        $answersWithQuestions = $attempt->answers()->with('question')->get();
+    //     // Get all answers with their questions 
+    //     // Eager load the questions with the answers
+    //     // to avoid N+1 query problem
+    //     $answersWithQuestions = $attempt->answers()->with('question')->get();
 
-        // Map the data for the view
-        $questionsWithAnswers = $answersWithQuestions->map(function ($answer) {
-            return [
-                'question' => $answer->question ? $answer->question->question : 'Question not found',
-                'user_answer' => $answer->user_answer,
-                'correct_answer' => $answer->question ? $answer->question->correct_answer : 'N/A',
-                'is_correct' => $answer->is_correct
-            ];
-        });
+    //     // Map the data for the view
+    //     $questionsWithAnswers = $answersWithQuestions->map(function ($answer) {
+    //         return [
+    //             'question' => $answer->question ? $answer->question->question : 'Question not found',
+    //             'user_answer' => $answer->user_answer,
+    //             'correct_answer' => $answer->question ? $answer->question->correct_answer : 'N/A',
+    //             'is_correct' => $answer->is_correct
+    //         ];
+    //     });
 
 
-        return view('quiz.result', compact('attempt', 'score', 'correctAnswers', 'questionsWithAnswers'));
-    }
+    //     return view('quiz.result', compact('attempt', 'score', 'correctAnswers', 'questionsWithAnswers'));
+    // }
+
+    // Controller (keep this the same)
+public function completeQuiz(UserQuizAttempt $attempt)
+{
+    $correctAnswers = $attempt->answers()->where('is_correct', true)->count();
+    $score = ($correctAnswers / $attempt->total_questions) * 100;
+
+    $attempt->update([
+        'completed_at' => now(),
+        'score' => $score,
+        'status' => 'completed'
+    ]);
+
+    $answersWithQuestions = $attempt->answers()->with('question')->get();
+
+    $questionsWithAnswers = $answersWithQuestions->map(function ($answer) {
+        return [
+            'question' => $answer->question ? $answer->question->question : 'Question not found',
+            'user_answer' => $answer->user_answer,
+            'correct_answer' => $answer->question ? $answer->question->correct_answer : 'N/A',
+            'is_correct' => $answer->is_correct
+        ];
+    });
+
+    return view('quiz.result', [
+        'attempt' => $attempt,
+        'score' => $score,
+        'correctCount' => $correctAnswers,
+        'totalQuestions' => $attempt->total_questions,
+        'questionsWithAnswers' => $questionsWithAnswers
+    ]);
+}
 }

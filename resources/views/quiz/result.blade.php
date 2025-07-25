@@ -1,163 +1,99 @@
 @extends('layouts.app')
-@section('title', 'Result Quiz')
-@section('style')
-<style>
-    .hexagon-answer {
-        position: relative;
-        background: linear-gradient(135deg, #4A90E2, #357ABD);
-        clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 80px;
-        width: 280px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
-    .question-box {
-        background: linear-gradient(135deg, #4A90E2, #357ABD);
-        border-radius: 50px;
-        padding: 20px 30px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        width: 100%;
-        max-width: 600px;
-    }
-    
-    .winner-box {
-        background: linear-gradient(135deg, #4A90E2, #357ABD);
-        border-radius: 50px;
-        padding: 25px 50px;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-        display: inline-block;
-    }
-    
-    /* Responsive Design */
-    @media (max-width: 768px) {
-        .question-answer-row {
-            flex-direction: column !important;
-            gap: 15px !important;
-            align-items: center !important;
-        }
-        
-        .hexagon-answer {
-            width: 220px;
-            min-height: 60px;
-        }
-        
-        .question-box {
-            max-width: 400px;
-            padding: 15px 25px;
-        }
-        
-        .results-title {
-            font-size: 4rem !important;
-        }
-        
-        .winner-text {
-            font-size: 2.5rem !important;
-        }
-        
-        .question-text, .answer-text {
-            font-size: 1rem !important;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .hexagon-answer {
-            width: 180px;
-            min-height: 50px;
-        }
-        
-        .question-box {
-            max-width: 320px;
-            padding: 12px 20px;
-        }
-        
-        .results-title {
-            font-size: 3rem !important;
-        }
-        
-        .winner-text {
-            font-size: 2rem !important;
-        }
-        
-        .winner-box {
-            padding: 20px 35px;
-        }
-    }
-</style>
-@endsection
+@section('title', 'Quiz Results')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-purple-600 py-6 px-4">
-    <div class="max-w-6xl mx-auto">
-        
-      
-        <div class="text-center mb-10">
-            <h1 class="results-title text-6xl md:text-8xl font-bold text-black">Results</h1>
-        </div>
+    <div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6">
+        <div class="max-w-3xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-10">
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Quiz Results</h1>
+                <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+                    <div class="bg-blue-600 h-4 rounded-full transition-all duration-500 ease-out"
+                        style="width: {{ $score }}%"></div>
+                </div>
+                <p class="text-lg text-gray-600">{{ round($score) }}% Score</p>
+            </div>
 
-        <!-- Questions and Answers -->
-        <div class="space-y-6 mb-12">
-            @foreach($questionsWithAnswers as $qa)
-                <div class="question-answer-row flex flex-row items-center justify-between gap-6">
-                    
-                  
-                    <div class="flex-1">
-                        <div class="question-box">
-                            <p class="question-text text-white text-lg md:text-xl font-medium text-center">
-                                {{ $qa['question'] }}
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow duration-200">
+                    <p class="text-sm text-gray-500">Correct</p>
+                    <p class="text-2xl font-bold text-green-600">{{ $correctCount }}</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow duration-200">
+                    <p class="text-sm text-gray-500">Total</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $totalQuestions }}</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm text-center hover:shadow-md transition-shadow duration-200">
+                    <p class="text-sm text-gray-500">Percentage</p>
+                    <p class="text-2xl font-bold text-blue-600">{{ round($score) }}%</p>
+                </div>
+            </div>
+
+            <!-- Questions List -->
+            <div class="space-y-4 mb-10">
+                @foreach ($questionsWithAnswers as $qa)
+                    <div class="bg-white p-5 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mr-4">
+                                <div
+                                    class="flex items-center justify-center w-8 h-8 rounded-full {{ $qa['is_correct'] ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $loop->iteration }}
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-medium text-gray-900 mb-3">{{ $qa['question'] }}</h3>
+
+                                <div class="space-y-2">
+                                    <div>
+                                        <p class="text-sm text-gray-500">Your answer:</p>
+                                        <p class="{{ $qa['is_correct'] ? 'text-green-600' : 'text-red-600' }} font-medium">
+                                            {{ $qa['user_answer'] }}
+                                        </p>
+                                    </div>
+
+                                    @unless ($qa['is_correct'])
+                                        <div>
+                                            <p class="text-sm text-gray-500">Correct answer:</p>
+                                            <p class="text-green-600 font-medium">{{ $qa['correct_answer'] }}</p>
+                                        </div>
+                                    @endunless
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <!-- Success Badge -->
+            @if ($score >= 80)
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 rounded animate-pulse">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-yellow-700">
+                                <span class="font-bold">Excellent!</span> You scored above 80%.
                             </p>
                         </div>
                     </div>
-
-                    <!-- Answer Section -->
-                    <div class="flex-shrink-0">
-                        @if($qa['is_correct'])
-                            <!-- Correct Answer - Show in Green -->
-                            <div class="hexagon-answer" style="background: linear-gradient(135deg, #4CAF50, #45a049);">
-                                <p class="answer-text text-white text-lg md:text-xl font-bold text-center px-3">
-                                    {{ $qa['user_answer'] }}
-                                </p>
-                            </div>
-                        @else
-                            <!-- Wrong Answer - Show User's Answer in Red -->
-                            <div class="hexagon-answer" style="background: linear-gradient(135deg, #f44336, #d32f2f);">
-                                <p class="answer-text text-white text-lg md:text-xl font-bold text-center px-3">
-                                    {{ $qa['user_answer'] }}
-                                </p>
-                            </div>
-                            
-                            <!-- Show Correct Answer Below -->
-                            <div class="mt-3 text-center">
-                                <div class="hexagon-answer" style="background: linear-gradient(135deg, #4CAF50, #45a049); transform: scale(0.8);">
-                                    <p class="text-white text-sm md:text-base font-bold text-center px-2">
-                                        {{ $qa['correct_answer'] }}
-                                    </p>
-                                </div>
-                                <p class="text-white text-xs mt-1 font-medium">Correct Answer</p>
-                            </div>
-                        @endif
-                    </div>
                 </div>
-            @endforeach
-        </div>
+            @endif
 
-        <!-- Winner Section -->
-        <div class="text-center">
-            <div class="winner-box">
-                <h2 class="winner-text text-white text-4xl md:text-5xl font-bold">Winner</h2>
-            </div>
-        </div>
-
-          <div class="flex flex-col sm:flex-row gap-4 justify-center text-center">
-                <a href="{{ route('quiz.index') }}" 
-                   class="bg-white text-purple-600 px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition duration-300 shadow-lg transform hover:scale-105">
-                    Take Another Quiz
+            <!-- Actions -->
+            <div class="quiz-actions-container">
+                <a href="{{ route('quiz.index') }}" class="quiz-action-btn quiz-primary-btn">
+                    Try Another Quiz
                 </a>
-             
+                <button onclick="window.print()" class="quiz-action-btn quiz-secondary-btn">
+                    Print Results
+                    </a>
             </div>
-
+        </div>
     </div>
-</div>
 @endsection

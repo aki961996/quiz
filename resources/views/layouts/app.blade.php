@@ -57,7 +57,7 @@
     <script src="{{asset('/vendor/php-email-form/validate.js')}}"></script>
 
   
-     <script src="{{asset('public/js/main.js')}}"></script> 
+     <script src="{{asset('/js/main.js')}}"></script> 
 
     @yield('script')
 
