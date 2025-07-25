@@ -92,7 +92,7 @@
 <div class="min-h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-purple-600 py-6 px-4">
     <div class="max-w-6xl mx-auto">
         
-        <!-- Results Header -->
+      
         <div class="text-center mb-10">
             <h1 class="results-title text-6xl md:text-8xl font-bold text-black">Results</h1>
         </div>
@@ -102,7 +102,7 @@
             @foreach($questionsWithAnswers as $qa)
                 <div class="question-answer-row flex flex-row items-center justify-between gap-6">
                     
-                    <!-- Question Box -->
+                  
                     <div class="flex-1">
                         <div class="question-box">
                             <p class="question-text text-white text-lg md:text-xl font-medium text-center">
@@ -149,6 +149,14 @@
                 <h2 class="winner-text text-white text-4xl md:text-5xl font-bold">Winner</h2>
             </div>
         </div>
+
+          <div class="flex flex-col sm:flex-row gap-4 justify-center text-center">
+                <a href="{{ route('quiz.index') }}" 
+                   class="bg-white text-purple-600 px-8 py-3 rounded-full font-bold text-lg hover:bg-gray-100 transition duration-300 shadow-lg transform hover:scale-105">
+                    Take Another Quiz
+                </a>
+             
+            </div>
 
     </div>
 </div>

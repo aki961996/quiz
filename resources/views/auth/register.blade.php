@@ -1,5 +1,19 @@
 @extends('layouts.app')
 @section('title', 'Sign Up')
+@section('style')
+<style>
+    body {
+        background: url('{{ asset('/home/img/detail.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+    }
+
+    .card {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+</style>
+@endsection
 @section('content')
     <main>
         <div class="container">
@@ -37,9 +51,6 @@
                                                 value="{{ old('email') }}">
                                             <div style="color: red">{{ $errors->first('email') }}</div>
                                         </div>
-
-
-
 
 
 
