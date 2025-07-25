@@ -32,13 +32,7 @@
     <!-- Template Main CSS File -->
     <link href="{{asset('/css/style.css')}}" rel="stylesheet">
 
-    <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Updated: Apr 20 2024 with Bootstrap v5.3.3
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  
 
   @yield('style')
 </head>
@@ -62,7 +56,7 @@
     <script src="{{asset('/vendor/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('/vendor/php-email-form/validate.js')}}"></script>
 
-    <!-- Template Main JS File -->
+  
      <script src="{{asset('public/js/main.js')}}"></script> 
 
     @yield('script')
